@@ -10,8 +10,8 @@
 #include <stdint.h>
 #include <InterfaceDefinitions.h>
 
-#include <opencv/cv.h>
-#include <opencv/ml.h>
+//#include <opencv/cv.h>
+#include <opencv2/ml.hpp>
 
 class RandomForestML
 {
@@ -31,7 +31,7 @@ public:
 		double & deviation);
 
 private:
-	CvRTrees* m_pTrainedRF;
+	cv::Ptr<cv::ml::RTrees> m_pTrainedRF;
 	std::string joinRFTrainedParamsString();
 };
 

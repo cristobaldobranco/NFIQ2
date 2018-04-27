@@ -12,9 +12,9 @@ typedef uint16_t WORD;
 typedef uint32_t DWORD;
 #endif
 
-#include <opencv2/core/core.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/imgproc.hpp>
+#include <opencv2/highgui.hpp>
 
 #define MU_THRESHOLD 250
 
@@ -162,6 +162,8 @@ namespace NFIQ
 		* @throws NFIQException
 		*/
 		void fromWSQ(NFIQ::FingerprintImageData & wsqData);
+
+		void fromCvMat(cv::Mat & mat);
 
 		/**
 		* @fn removeWhiteFrameAroundFingerprint

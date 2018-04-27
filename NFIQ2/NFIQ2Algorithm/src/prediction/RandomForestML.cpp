@@ -26,7 +26,6 @@ std::string RandomForestML::joinRFTrainedParamsString()
 
 RandomForestML::RandomForestML()
 {
-	m_pTrainedRF = NULL;
 }
 
 RandomForestML::~RandomForestML()
@@ -34,8 +33,6 @@ RandomForestML::~RandomForestML()
 	if (m_pTrainedRF)
 	{
 		m_pTrainedRF->clear();
-		delete m_pTrainedRF;
-		m_pTrainedRF = NULL;
 	}
 }
 void RandomForestML::initModule()
@@ -51,13 +48,12 @@ void RandomForestML::initModule()
 		data.fromBase64String(params);
 		params = "";
 		params.assign((const char*)data.data(), data.size());
+
 		// create file storage with parameters in memory
 		FileStorage fs(params.c_str(), FileStorage::READ | FileStorage::MEMORY | FileStorage::FORMAT_YAML);
-		m_pTrainedRF = new CvRTrees();
-		// now import data structures
-		m_pTrainedRF->read(fs.fs, cvGetFileNodeByName(fs.fs, NULL, "my_random_trees"));
+		m_pTrainedRF = Algorithm::read<cv::ml::RTrees>(fs["my_random_trees"]);
 	}
-	catch (cv::Exception e)
+	catch (cv::Exception &e)
 	{
 		throw e;
 	}
@@ -91,8 +87,15 @@ void RandomForestML::evaluate(
 		counterFeatures++;
 	}
 
+	// replacement of the predict_prob(...) method of OpenCV 2.4 CvRTrees
+	cv::Mat votes;
+	m_pTrainedRF->getVotes(sample_data, votes, 0);
+
+	int a = votes.at<int>(1, 0);
+	int b = votes.at<int>(1, 1);
+
 	// returns probability that between 0 and 1 that result belongs to second class
-	float prob = m_pTrainedRF->predict_prob(sample_data, Mat());
+	float prob = b / ((float) a + b);
 
 	// return quality value
 	qualityValue = (int)((prob * 100) + 0.5);

@@ -332,6 +332,21 @@ void FingerprintImageData::fromWSQ(NFIQ::FingerprintImageData & wsqData)
 	free(raw_data);
 }
 
+void FingerprintImageData::fromCvMat(cv::Mat & mat)
+{
+	if (mat.channels() > 1)
+	{
+		throw NFIQ::NFIQException(NFIQ::e_Error_WrongFileType, "Wrong file type: currently only greyscale mats are supported, please convert");
+	}
+
+	this->assign(mat.data, mat.total()*mat.elemSize());
+	this->m_ImageWidth = mat.cols;
+	this->m_ImageHeight = mat.rows;
+	this->m_ImageDPI = 500;
+	this->m_FingerCode = 0;
+}
+
+
 NFIQ::FingerprintImageData FingerprintImageData::removeWhiteFrameAroundFingerprint()
 {
 	// make local copy of internal fingerprint image

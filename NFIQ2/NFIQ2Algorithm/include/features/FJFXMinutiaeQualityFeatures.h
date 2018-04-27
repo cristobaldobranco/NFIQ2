@@ -26,8 +26,8 @@
 #include <errno.h>
 #include <fcntl.h>
 
-#include <opencv2/core/core.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/imgproc.hpp>
 
 /* Ideal Standard Deviation of pixel values in a neighborhood. */
 #define IDEALSTDEV  64

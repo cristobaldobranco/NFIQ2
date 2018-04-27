@@ -13,11 +13,11 @@
 #include <features/BaseFeature.h>
 #include <features/ImgProcROIFeature.h>
 
-#include <opencv2/core/core.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/features2d/features2d.hpp>
-#include <opencv2/objdetect/objdetect.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/imgproc.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/features2d.hpp>
+#include <opencv2/objdetect.hpp>
 
 #define LOW_FLOW_MAP_NO_DIRECTION   0
 #define LOW_FLOW_MAP_LOW_FLOW       127

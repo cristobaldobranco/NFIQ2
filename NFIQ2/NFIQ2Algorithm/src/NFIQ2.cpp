@@ -5,6 +5,8 @@
 #include <list>
 #include <fstream>
 
+#include <opencv2/imgproc.hpp>
+
 #include "include/NFIQException.h"
 #include "include/Timer.hpp"
 #include "include/FingerprintImageData.h"
@@ -91,8 +93,10 @@ int executeRunModeSingle(std::string fpImagePath, std::string imageFormat, bool 
 			rawImage.fromWSQ(fpImage);
 		else
 		{
-			std::cerr << "ERROR => Unknown image format specified" << std::endl;
-			return -1;
+			cv::Mat greyMat;
+			cv::Mat input = cv::imread(fpImagePath);
+			cv::cvtColor(input, greyMat, CV_BGR2GRAY);
+			rawImage.fromCvMat(greyMat);
 		}
 
 		// start timer for initialization routine

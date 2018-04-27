@@ -5,8 +5,8 @@
 
 #include <stdint.h>
 #include <InterfaceDefinitions.h>
-#include <opencv2/core/core.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/imgproc.hpp>
 
 void ridgesegment (const cv::Mat& Image, int blksze, double thresh,
 				   cv::OutputArray NormImage, cv::Mat& MaskImage,

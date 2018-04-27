@@ -124,20 +124,20 @@ ImgProcROIFeature::ImgProcROIResults ImgProcROIFeature::computeROI(cv::Mat & img
 	std::vector<Vec4i> hierarchy;
 
 	// find contours in image
-	findContours( contImg, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE, Point(0,0) );
+	findContours( contImg, contours, hierarchy, RETR_CCOMP, CHAIN_APPROX_SIMPLE, Point(0,0) );
 
 	// if holes are found -> close holes
 	if (hierarchy.size() > 2)
 	{
 		Mat filledImg;
-		cvtColor(threshImg2, filledImg, CV_GRAY2BGR);
+		cvtColor(threshImg2, filledImg, COLOR_GRAY2BGR);
 
 		for (unsigned int idx = 0; idx < (hierarchy.size() - 2); idx++)
 		{	
-			drawContours( filledImg, contours, idx, Scalar(0,0,0,0), CV_FILLED, 8, hierarchy );
+			drawContours( filledImg, contours, idx, Scalar(0,0,0,0), FILLED, 8, hierarchy );
 		}
 
-		cvtColor(filledImg, threshImg2, CV_BGR2GRAY);
+		cvtColor(filledImg, threshImg2, COLOR_BGR2GRAY);
 	}
 
 	// 7. remove smaller blobs at the edges that are not part of the fingerprint
@@ -246,7 +246,7 @@ ImgProcROIFeature::ImgProcROIResults ImgProcROIFeature::computeROI(cv::Mat & img
 			if (m.val[0] < 255)
 			{
 				// take block
-				rectangle(bsImg, Point(j, i), Point(j + takenBS_X, i + takenBS_Y), Scalar(0,0,0,0), CV_FILLED);
+				rectangle(bsImg, Point(j, i), Point(j + takenBS_X, i + takenBS_Y), Scalar(0,0,0,0), FILLED);
 				roiResults.vecROIBlocks.push_back(Rect(j, i, takenBS_X, takenBS_Y));
 			}
 
