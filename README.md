@@ -1,3 +1,24 @@
+NFIQ 2.0 for OpenCV 3
+=====================
+
+This is a port of the NFIQ 2.0 source code to work with an installation (currently to /usr/local/) of OpenCV 3.
+It will need OpenCV 3.3+ (I worked with 3.4.1) because the random trees implementation did not longer contain the predict_prob() method and did not provide the getVotes() method in earlier versions of OpenCV 3.
+
+I also added the following convenience functions:
+  * Possibility to work with any picture format OpenCv can open
+  * Loading image data from cv::Mat
+  
+Testing
+-------
+My fingerprint set returned the same quality scores in the upgraded version as in the out of the box build.
+
+Performance
+-----------
+The update to OpenCV 3 seems to have negative impact on the performance.
+
+Below there follows the content of the original Readme.
+
+
 NFIQ 2.0
 ========
 NFIQ 2.0 is a revision of the open source NIST Finger Image Quality (NFIQ).
